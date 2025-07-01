@@ -1,0 +1,24 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="https://www.thymeleaf.org/">
+
+<head>
+	<meta charset="ISO-8859-1">
+	<title>Captcha HomePage</title>
+</head>
+
+<body>
+	<h1>This is HomePage of My Thymeleaf for captcha demo.</h1>
+	<form th:action="@{/save}" method="post" th:object="${backendData}">
+		<pre>
+			Name    <input type="text" th:field="*{name}" /><br/>
+			Age     <input type="text" th:field="*{age}" /><br/>
+				    <img th:src="*{'data:image/png;base64,' + captchaBase64}" />
+			Captcha <input type="text" th:field="*{captchaAnswerUser}" /><br/>
+			<!-- <input type="hidden" th:field="*{captchaBase64}" /> -->
+			<input type="hidden" th:field="*{captchaAnswerActual}" />
+			<input type="submit" />
+		</pre>
+	</form>
+</body>
+
+</html>
