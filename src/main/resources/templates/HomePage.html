@@ -2,23 +2,102 @@
 <html lang="en" xmlns:th="https://www.thymeleaf.org/">
 
 <head>
-	<meta charset="ISO-8859-1">
+	<meta charset="UTF-8">
 	<title>Captcha HomePage</title>
+	<style>
+		body {
+			font-family: Arial, sans-serif;
+			background-color: #f4f4f4;
+			display: flex;
+			justify-content: center;
+			align-items: center;
+			height: 100vh;
+			margin: 0;
+		}
+
+		.captcha-wrapper {
+			display: flex;
+			justify-content: center;
+			border: 1px solid black;
+		}
+
+		.form-container {
+			background-color: #fff;
+			padding: 20px 30px;
+			border-radius: 10px;
+			box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+			width: 100%;
+			max-width: 400px;
+		}
+
+		.form-container h2 {
+			text-align: center;
+			margin-bottom: 20px;
+		}
+
+		.form-group {
+			margin-bottom: 15px;
+		}
+
+		.form-group label {
+			display: block;
+			margin-bottom: 5px;
+			font-weight: bold;
+		}
+
+		.form-group input {
+			width: 100%;
+			padding: 8px;
+			box-sizing: border-box;
+		}
+
+		.form-group button {
+			width: 100%;
+			padding: 10px;
+			background-color: #007BFF;
+			color: white;
+			border: none;
+			font-size: 16px;
+			border-radius: 5px;
+			cursor: pointer;
+		}
+
+		.form-group button:hover {
+			background-color: #0056b3;
+		}
+	</style>
 </head>
 
 <body>
-	<h1>This is HomePage of My Thymeleaf for captcha demo.</h1>
-	<form th:action="@{/save}" method="post" th:object="${backendData}">
-		<pre>
-			Name    <input type="text" th:field="*{name}" /><br/>
-			Age     <input type="text" th:field="*{age}" /><br/>
-				    <img th:src="*{'data:image/png;base64,' + captchaBase64}" />
-			Captcha <input type="text" th:field="*{captchaAnswerUser}" /><br/>
-			<!-- <input type="hidden" th:field="*{captchaBase64}" /> -->
-			<input type="hidden" th:field="*{captchaAnswerActual}" />
-			<input type="submit" />
-		</pre>
-	</form>
+	<div class="form-container">
+		<h2>Simple Captcha Demo</h2>
+		<form th:action="@{/save}" method="post" th:object="${backendData}">
+			<div class="form-group">
+				<label for="fullname">Full Name</label>
+				<input type="text" placeholder="Naam ka hai tumhara" th:field="*{name}" required />
+			</div>
+
+			<div class="form-group">
+				<label for="email">Age</label>
+				<input type="number" placeholder="Umar kitna ho gya tumhara" th:field="*{age}" required />
+			</div>
+
+			<div class="form-group captcha-wrapper">
+				<img th:src="*{'data:image/png;base64,' + captchaBase64}" />
+				<input type="hidden" th:field="*{captchaBase64}" />
+			</div>
+
+			<div class="form-group">
+				<label for="email">Captcha</label>
+				<input type="text" th:field="*{captchaAnswerUser}" placeholder="Jo bhi padne me aa rha ho daal do" required/>
+				<input type="hidden" th:field="*{captchaAnswerActual}" />
+			</div>
+
+			<div class="form-group">
+				<button type="submit">Submit</button>
+			</div>
+		</form>
+	</div>
 </body>
 
 </html>
